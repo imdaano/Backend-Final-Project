@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "seedBooks": "node ./src/utils/seeds/books.seed.js",
+    "seedEstablishment": "node ./src/utils/seeds/establishment.seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
