@@ -4,7 +4,7 @@ require("dotenv").config();
 const db = require('./src/utils/database/db');
 const indexRoutes = require('./src/api/index/index.routes')
 const booksRoutes = require('./src/api/books/books.routes')
-const establishmentsRoutes = require('./src/api/establishments/establishments.routes')
+const establishmentRoutes = require('./src/api/establishment/establishment.routes')
 const usersRoutes = require('./src/api/users/users.routes')
 
 cloudinary.config({
@@ -29,7 +29,7 @@ server.use(express.urlencoded({ extended: false }));
 server.use("/", indexRoutes);
 server.use("/books", booksRoutes);
 server.use("/users", usersRoutes);
-server.use("/establishments", establishmentsRoutes);
+server.use("/establishment", establishmentRoutes);
 
 server.use((error, req, res, next) => {
   return res
