@@ -8,11 +8,11 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: true, trim: true },
     username: { type: String, trim: true },
-    photo: { type: File, required: true, trim: true},
+    photo: { type: String, required: true, trim: true},
     name: { type: String, trim: true },
     lastName: { type: String, trim: true },
     city: { type: String , trim: true},
-    rol: { type: String, enum: ["admin", "user", "establishment"], default: "user"},
+    rol: { type: String, enum: ["admin", "user", "checkpoint"], default: "user"}, 
   },
   {
     timestamps: true,

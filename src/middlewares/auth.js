@@ -29,20 +29,20 @@ const isAdmin = async (req, res, next) => {
     const validToken = verifyJwt(parsedToken);
     const userLogged = await User.findById(validToken.id);
 
-    if (userLogged.rol === "admin") {
-      userLogged.password = null;
-      req.user = userLogged;
-      next();
-    } else {
-      error = new Error("Only admin can do this");
-      return res.status(400).json(error);
-    }
+    // if (userLogged.rol === "admin") {
+    //   userLogged.password = null;
+    //   req.user = userLogged;
+    //   next();
+    // } else {
+    //   error = new Error("Only admin can do this");
+    //   return res.status(400).json(error);
+    // }
     } catch (error) {
     return res.status(500).json(error)
   }
 };
 
-const isEstablishment = async (req, res, next) => {
+const isCheckpoint = async (req, res, next) => {
     try {
       const token = req.headers.authorization;
       if (!token) {
@@ -52,17 +52,17 @@ const isEstablishment = async (req, res, next) => {
       const validToken = verifyJwt(parsedToken);
       const userLogged = await User.findById(validToken.id);
   
-      if (userLogged.rol === "establisment") {
-        userLogged.password = null;
-        req.user = userLogged;
-        next();
-      } else {
-        error = new Error("Only establishment can do this");
-        return res.status(400).json(error);
-      }
+      // if (userLogged.rol === "checkpoint") {
+      //   userLogged.password = null;
+      //   req.user = userLogged;
+      //   next();
+      // } else {
+      //   error = new Error("Only checkpoint owner can do this");
+      //   return res.status(400).json(error);
+      // }
       } catch (error) {
       return res.status(500).json(error)
     }
   };
 
-module.exports = { isAuth, isAdmin, isEstablishment};
+module.exports = { isAuth, isAdmin, isCheckpoint};
