@@ -34,4 +34,24 @@ const books = [
       },
 ];
 
-module.exports = { isAuth, isAdmin, isEstablishment};
+connectDb()
+  .then(async () => {
+    const allBooks = await Book.find().lean();
+
+    if (!allBooks.length) {
+      console.log("[seed]: No books found");
+    } else {
+      console.log(`[seed]: Found ${allBooks.length} books`);
+      await Book.collection.drop();
+      console.log("[seed]: Book deleted correctly");
+    }
+  })
+  .catch((error) =>
+    console.log("[seed]: Error finding book: ", error)
+  )
+  .then(async () => {
+    await Book.insertMany(books);
+    console.log("[seed]: New books added");
+  })
+  .catch((error) => console.log("[seed]: Error adding book", error))
+  .finally(() => mongoose.disconnect());
