@@ -12,4 +12,4 @@ const establishmentSchema = new Schema(
 );
 
 const Establishment = mongoose.model('establishment', establishmentSchema);
-module.exports = User;
+module.exports = Establishment;

@@ -11,5 +11,5 @@ const booksSchema = new Schema(
     }
 );
 
-const Books = mongoose.model('establishment', booksSchema);
-module.exports = User;
+const Books = mongoose.model('books', booksSchema);
+module.exports = Books;
