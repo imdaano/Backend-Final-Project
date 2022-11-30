@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const establishmentSchema = new Schema(
+const checkpointSchema = new Schema(
   {
     name: { type: String, trim: true },
     img: { type: String, trim: true },
@@ -16,5 +16,5 @@ const establishmentSchema = new Schema(
   }
 );
 
-const Establishment = mongoose.model("establishment", establishmentSchema);
-module.exports = Establishment;
+const Checkpoint = mongoose.model("checkpoints", checkpointSchema);
+module.exports = Checkpoint;
