@@ -6,7 +6,7 @@ const indexRoutes = require('./src/api/index/index.routes')
 const booksRoutes = require('./src/api/books/books.routes')
 const checkpointRoutes = require('./src/api/checkpoints/checkpoints.routes')
 const usersRoutes = require('./src/api/users/users.routes')
-const cors = require("./src/api/users/users.model")
+const cors = require("cors")
 const cloudinary = require("cloudinary").v2;
 
 db.connectDb();
