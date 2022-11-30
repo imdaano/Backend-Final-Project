@@ -39,7 +39,7 @@ router.get("/", async (req, res) => {
     try {
       const establishment = req.body;
       if (req.file) {
-        establishment.image = req.file.path;
+        establishment.img = req.file.path;
       }
       const newEstablishment = new Establishment(establishment);
       const created = await newEstablishment.save();
@@ -56,8 +56,8 @@ router.get("/", async (req, res) => {
       const establishmentOld = await Establishment.findById(id);
   
       if (req.file) {
-        deleteFile(establishmentOld.image);
-        establishment.image = req.file.path;
+        deleteFile(establishmentOld.img);
+        establishment.img = req.file.path;
       }
       const establishmentModify = new Establishment(req.body);
       establishmentModify._id = id;

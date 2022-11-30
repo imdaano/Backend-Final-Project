@@ -9,13 +9,14 @@ const usersRoutes = require('./src/api/users/users.routes')
 const cors = require("./src/api/users/users.model")
 const cloudinary = require("cloudinary").v2;
 
+db.connectDb();
+
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET,
 });
 
-db.connectDb();
 
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
