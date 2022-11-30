@@ -6,6 +6,8 @@ const indexRoutes = require('./src/api/index/index.routes')
 const booksRoutes = require('./src/api/books/books.routes')
 const establishmentRoutes = require('./src/api/establishment/establishment.routes')
 const usersRoutes = require('./src/api/users/users.routes')
+const cors = require("./src/api/users/users.model")
+const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -13,7 +15,7 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-connectDb();
+db.connectDb();
 
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
