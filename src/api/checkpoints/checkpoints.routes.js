@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-      const allCheckpoints = await Checkpoint.find();
+      const allCheckpoints = await Checkpoint.find().populate("books");
       return res.status(200).json(allCheckpoints);
     } catch (error) {
       return res.status(500).json("Server error");
@@ -36,13 +36,13 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.post("/create", [isAdmin], upload.single("img"), async (req, res) => {
+  router.post("/create", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
     try {
       const checkpoint = req.body;
       if (req.file) {
         checkpoint.img = req.file.path;
       }
-      const newCheckpoint = new checkpoint(checkpoint);
+      const newCheckpoint = new Checkpoint(checkpoint);
       const created = await newCheckpoint.save();
       return res.status(201).json(created);
     } catch (error) {
@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.put("/edit/:id", [isAdmin], upload.single("img"), async (req, res) => {
+  router.put("/edit/:id", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
     try {
       const id = req.params.id;
       const checkpoint = req.body;
@@ -69,7 +69,7 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.delete("/delete/:id", [isAdmin], async (req, res) => {
+  router.delete("/delete/:id", /*[isAdmin],*/ async (req, res) => {
     try {
       const id = req.params.id;
       const checkpointToDelete = await Checkpoint.findByIdAndDelete(id);

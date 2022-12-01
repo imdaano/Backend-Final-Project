@@ -12,6 +12,7 @@ const checkpointSchema = new Schema(
       coordinates: [Number],
     },
     phone: { type: String },
+    books: [{type: mongoose.Types.ObjectId, ref: "books"}]
   },
   {
     timestamps: true,
