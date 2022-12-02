@@ -42,7 +42,7 @@ router.get("/", async (req, res) => {
       if (req.file) {
         checkpoint.img = req.file.path;
       }
-      const newCheckpoint = new checkpoint(checkpoint);
+      const newCheckpoint = new Checkpoint(checkpoint);
       const created = await newCheckpoint.save();
       return res.status(201).json(created);
     } catch (error) {
