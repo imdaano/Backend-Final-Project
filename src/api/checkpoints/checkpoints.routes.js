@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.post("/create", [isAdmin], upload.single("img"), async (req, res) => {
+  router.post("/create", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
     try {
       const checkpoint = req.body;
       if (req.file) {
@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.put("/edit/:id", [isAdmin], upload.single("img"), async (req, res) => {
+  router.put("/edit/:id", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
     try {
       const id = req.params.id;
       const checkpoint = req.body;
@@ -69,7 +69,7 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.delete("/delete/:id", [isAdmin], async (req, res) => {
+  router.delete("/delete/:id", /*[isAdmin],*/ async (req, res) => {
     try {
       const id = req.params.id;
       const checkpointToDelete = await Checkpoint.findByIdAndDelete(id);
