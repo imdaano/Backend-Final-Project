@@ -53,16 +53,19 @@ router.get("/", async (req, res) => {
   });
   
   router.put("/edit/:id", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
+    console.log("inside edit");
     try {
       const id = req.params.id;
       const checkpoint = req.body;
+      console.log(checkpoint.location);
+      checkpoint.location = JSON.parse(checkpoint.location)
       const checkpointOld = await Checkpoint.findById(id);
       // checkpoint.location = JSON.parse(checkpoint.location)
       if (req.file) {
         deleteFile(checkpointOld.img);
         checkpoint.img = req.file.path;
       }
-      const checkpointModify = new Checkpoint(req.body);
+      const checkpointModify = new Checkpoint(checkpoint);
       checkpointModify._id = id;
       const checkpointUpdated = await Checkpoint.findByIdAndUpdate(id, checkpointModify);
       return res.status(201).json(checkpointUpdated);
