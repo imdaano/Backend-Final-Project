@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-      const allCheckpoints = await Checkpoint.find();
+      const allCheckpoints = await Checkpoint.find().populate("books");
       return res.status(200).json(allCheckpoints);
     } catch (error) {
       return res.status(500).json("Server error");
@@ -38,7 +38,9 @@ router.get("/", async (req, res) => {
   
   router.post("/create", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
     try {
+      console.log(req.body.location);
       const checkpoint = req.body;
+      checkpoint.location = JSON.parse(checkpoint.location)
       if (req.file) {
         checkpoint.img = req.file.path;
       }
