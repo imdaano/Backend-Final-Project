@@ -38,7 +38,9 @@ router.get("/", async (req, res) => {
   
   router.post("/create", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
     try {
+      console.log(req.body.location);
       const checkpoint = req.body;
+      checkpoint.location = JSON.parse(checkpoint.location)
       if (req.file) {
         checkpoint.img = req.file.path;
       }
