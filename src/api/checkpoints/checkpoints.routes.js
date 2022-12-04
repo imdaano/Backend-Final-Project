@@ -57,7 +57,7 @@ router.get("/", async (req, res) => {
       const id = req.params.id;
       const checkpoint = req.body;
       const checkpointOld = await Checkpoint.findById(id);
-  
+      // checkpoint.location = JSON.parse(checkpoint.location)
       if (req.file) {
         deleteFile(checkpointOld.img);
         checkpoint.img = req.file.path;
