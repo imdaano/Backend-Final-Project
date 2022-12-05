@@ -3,44 +3,47 @@ const Checkpoint = require("./checkpoint.model");
 const upload = require("../../middlewares/file");
 const { deleteFile } = require("../../middlewares/deleteFile");
 const { isCheckpoint } = require("../../middlewares/auth"); //todavía no lo estamos utilizando
-const { isAdmin, isAuth } = require('../../middlewares/auth'); 
+const { isAdmin, isAuth } = require("../../middlewares/auth");
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    try {
-      const allCheckpoints = await Checkpoint.find().populate("books");
-      return res.status(200).json(allCheckpoints);
-    } catch (error) {
-      return res.status(500).json("Server error");
-    }
-  });
+  try {
+    const allCheckpoints = await Checkpoint.find().populate("books");
+    return res.status(200).json(allCheckpoints);
+  } catch (error) {
+    return res.status(500).json("Server error");
+  }
+});
 
-  router.get("/:id", async (req, res) => {
-    try {
-      const id = req.params.id;
-      const checkpointToFind = await Checkpoint.findById(id);
-      return res.status(200).json(checkpointToFind);
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  });
-  
-  router.get("/name/:name", async (req, res) => {
-    try {
-      const name = req.params.name;
-      const checkpointName = await Checkpoint.findOne({ name: name });
-      return res.status(200).json(checkpointName);
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  });
-  
-  router.post("/create", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
+router.get("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const checkpointToFind = await Checkpoint.findById(id);
+    return res.status(200).json(checkpointToFind);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+router.get("/name/:name", async (req, res) => {
+  try {
+    const name = req.params.name;
+    const checkpointName = await Checkpoint.findOne({ name: name }).populate("books");
+    return res.status(200).json(checkpointName);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+router.post(
+  "/create",
+  /*[isAdmin],*/ upload.single("img"),
+  async (req, res) => {
     try {
       console.log(req.body.location);
       const checkpoint = req.body;
-      checkpoint.location = JSON.parse(checkpoint.location)
+      checkpoint.location = JSON.parse(checkpoint.location);
       if (req.file) {
         checkpoint.img = req.file.path;
       }
@@ -50,40 +53,54 @@ router.get("/", async (req, res) => {
     } catch (error) {
       return res.status(500).json(error);
     }
-  });
-  
-  router.put("/edit/:id", /*[isAdmin],*/ upload.single("img"), async (req, res) => {
+  }
+);
+
+router.put(
+  "/edit/:id",
+  /*[isAdmin],*/ upload.single("img"),
+  async (req, res) => {
     console.log("inside edit");
     try {
       const id = req.params.id;
       const checkpoint = req.body;
-      console.log(checkpoint.location);
-      checkpoint.location = JSON.parse(checkpoint.location)
+      // console.log(checkpoint.location);
+
       const checkpointOld = await Checkpoint.findById(id);
-      // checkpoint.location = JSON.parse(checkpoint.location)
-      if (req.file) {
-        deleteFile(checkpointOld.img);
-        checkpoint.img = req.file.path;
-      }
       const checkpointModify = new Checkpoint(checkpoint);
+      if (checkpoint.location) {
+        checkpointModify.location = JSON.parse(checkpoint.location);
+      }
+      if (req.file) {
+        if (checkpointOld.img) {
+          deleteFile(checkpointOld.img);
+        }
+        checkpointModify.img = req.file.path;
+      }
       checkpointModify._id = id;
-      const checkpointUpdated = await Checkpoint.findByIdAndUpdate(id, checkpointModify);
+      console.log(checkpointModify);
+      const checkpointUpdated = await Checkpoint.findByIdAndUpdate(
+        id,
+        checkpointModify
+      );
       return res.status(201).json(checkpointUpdated);
     } catch (error) {
       return res.status(500).json("Error editing checkpoint");
     }
-  });
-  
-  router.delete("/delete/:id", /*[isAdmin],*/ async (req, res) => {
+  }
+);
+
+router.delete(
+  "/delete/:id",
+  /*[isAdmin],*/ async (req, res) => {
     try {
       const id = req.params.id;
       const checkpointToDelete = await Checkpoint.findByIdAndDelete(id);
-      return res
-        .status(200)
-        .json("checkpoint deleted correctly");
+      return res.status(200).json("checkpoint deleted correctly");
     } catch (error) {
       return res.status(500).json("Could not delete checkpoint");
     }
-  });
+  }
+);
 
-  module.exports = router;
+module.exports = router;
