@@ -8,12 +8,23 @@ const { isAuth, isAdmin } = require("../../middlewares/auth");
 
 router.get("/", /*[isAuth],*/ async (req, res) => {
   try {
-    const allUsers = await User.find().populate('books');
+    const allUsers = await User.find();
     return res.status(200).json(allUsers);
   } catch (error) {
     return res.status(500).json("Error in search user");
   }
 });
+
+router.get("/id/:id", /*[isAuth],*/ async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userById = await User.findOne().lean().populate('books');
+    return res.sendStatus(200).json(userById);
+  } catch (error) {
+    return res.statuts(500).json("Error getting user");
+  }
+});
+
 
 router.post("/register", async (req, res) => {
   try {
