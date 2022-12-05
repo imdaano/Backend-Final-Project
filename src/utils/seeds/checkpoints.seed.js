@@ -6,7 +6,7 @@ const { connectDb } = require('../database/db');
 const checkpoints = [
     {
         name: 'Bar Picnic',
-        img: 'https://lh3.googleusercontent.com/p/AF1QipM1uLzqoISJlSk_vEoGj6fvNNBuco5W9sdnBqWO=s1360-w1360-h1020',
+        img: 'https://cflvdg.avoz.es/sc/Eb91mf4eC0KKouMAu9NiYzGI85A=/480x/2022/01/14/00121642167421637460659/Foto/H13E2096.jpg',
         location: {
             type: 'Point',
             coordinates: [43.3487585,-8.4194644]
