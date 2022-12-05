@@ -13,6 +13,7 @@ const userSchema = new Schema(
     lastName: { type: String, trim: true },
     city: { type: String , trim: true},
     rol: { type: String, enum: ["admin", "user", "checkpoint"], default: "user"}, 
+    books: [{type: mongoose.Types.ObjectId, ref: "books"}]
   },
   {
     timestamps: true,

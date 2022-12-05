@@ -26,10 +26,10 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.get("/:name", async (req, res) => {
+  router.get("/name/:name", async (req, res) => {
     try {
       const name = req.params.name;
-      const checkpointName = await Checkpoint.find({ name: name });
+      const checkpointName = await Checkpoint.findOne({ name: name });
       return res.status(200).json(checkpointName);
     } catch (error) {
       return res.status(500).json(error);
