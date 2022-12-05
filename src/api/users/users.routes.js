@@ -2,12 +2,13 @@ const express = require("express");
 const User = require("./users.model");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const upload = require('../../middlewares/file')
 const { generateSign } = require("../../utils/jwt/jwt");
 const { isAuth, isAdmin } = require("../../middlewares/auth");
 
 router.get("/", /*[isAuth],*/ async (req, res) => {
   try {
-    const allUsers = await User.find();
+    const allUsers = await User.find().populate('books');
     return res.status(200).json(allUsers);
   } catch (error) {
     return res.status(500).json("Error in search user");
@@ -54,6 +55,25 @@ router.post("/logout/:name", async (req, res) => {
     return res.status(200).json(token);
   } catch (error) {
     return res.status(500).json("Error logging out");
+  }
+});
+
+router.put("/edit/:id", /*[isAdmin],*/ upload.single("photo"), async (req, res) => {
+  try {
+    const id = req.params.id
+    const user = req.body;
+    const userOld = await User.findById(id);
+
+    if (req.file) {
+      deleteFile(userOld.photo);
+      user.photo = req.file.path;
+    }
+    const userModify = new User(user);
+    userModify._id = id;
+    const userUpdated = await User.findByIdAndUpdate(id, userModify);
+    return res.status(200).json({message: "User has been successfully updated", userModified: userUpdated});
+  } catch (error) {
+    return res.status(500).json("Error editing user");
   }
 });
 

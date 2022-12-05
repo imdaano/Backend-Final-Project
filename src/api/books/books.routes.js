@@ -28,7 +28,7 @@ router.get("/id/:id", async (req, res) => {
 router.get("/title/:title", async (req, res) => {
   try {
     const title = req.params.title;
-    const allBooks = await Book.find({ title: title });
+    const allBooks = await Book.findOne({ title: title });
     return res.status(200).json(allBooks);
   } catch (error) {
     return res.status(500).json(error);

@@ -26,10 +26,10 @@ router.get("/", async (req, res) => {
     }
   });
   
-  router.get("/:name", async (req, res) => {
+  router.get("/name/:name", async (req, res) => {
     try {
       const name = req.params.name;
-      const checkpointName = await Checkpoint.find({ name: name });
+      const checkpointName = await Checkpoint.findOne({ name: name });
       return res.status(200).json(checkpointName);
     } catch (error) {
       return res.status(500).json(error);
@@ -60,7 +60,7 @@ router.get("/", async (req, res) => {
       console.log(checkpoint.location);
       checkpoint.location = JSON.parse(checkpoint.location)
       const checkpointOld = await Checkpoint.findById(id);
-  
+      // checkpoint.location = JSON.parse(checkpoint.location)
       if (req.file) {
         deleteFile(checkpointOld.img);
         checkpoint.img = req.file.path;

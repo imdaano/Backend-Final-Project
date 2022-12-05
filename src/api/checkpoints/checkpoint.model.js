@@ -8,7 +8,7 @@ const checkpointSchema = new Schema(
     img: { type: String, trim: true },
     location: {
       type: { type: String, trim: true },
-      coordinates: [Number],
+      coordinates: [{type: Number}] ,
     },
     address: { type: String, trim: true},
     phone: { type: String },
