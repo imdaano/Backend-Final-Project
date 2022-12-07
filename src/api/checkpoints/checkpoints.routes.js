@@ -43,7 +43,9 @@ router.post(
     try {
       console.log(req.body.location);
       const checkpoint = req.body;
-      checkpoint.location = JSON.parse(checkpoint.location);
+      console.log(checkpoint);
+      checkpoint.location = {type: req.body.type, coordinates: JSON.parse(req.body.coordinates)}
+      console.log(checkpoint)
       if (req.file) {
         checkpoint.img = req.file.path;
       }

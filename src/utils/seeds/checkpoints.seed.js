@@ -13,6 +13,10 @@ const checkpoints = [
         },
         address: 'Av. de Monelos, 57, 61, 15009 A Coruña',
         phone: '981 28 10 02',
+        books:[
+            "638e72e15c1e0ff107e0841b",
+            "638e72e15c1e0ff107e0841d"
+        ]
     }, 
     {
         name: 'Centre Restaurant',
