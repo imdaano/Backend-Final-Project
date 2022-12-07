@@ -59,17 +59,17 @@ router.post(
 router.put(
   "/edit/:id",
   /*[isAdmin],*/ upload.single("img"),
-  async (req, res) => {
+  async (req, res, next) => {
     console.log("inside edit");
     try {
       const id = req.params.id;
       const checkpoint = req.body;
-      // console.log(checkpoint.location);
+      console.log(req.body);
 
       const checkpointOld = await Checkpoint.findById(id);
       const checkpointModify = new Checkpoint(checkpoint);
       if (checkpoint.location) {
-        checkpointModify.location = JSON.parse(checkpoint.location);
+        checkpointModify.location =  checkpoint.location;
       }
       if (req.file) {
         if (checkpointOld.img) {
@@ -81,11 +81,11 @@ router.put(
       console.log(checkpointModify);
       const checkpointUpdated = await Checkpoint.findByIdAndUpdate(
         id,
-        checkpointModify
-      );
+        checkpointModify, { returnOriginal: false }
+      ).populate("books");
       return res.status(201).json(checkpointUpdated);
     } catch (error) {
-      return res.status(500).json("Error editing checkpoint");
+      return next(error)
     }
   }
 );
