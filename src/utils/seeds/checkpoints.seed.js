@@ -6,13 +6,17 @@ const { connectDb } = require('../database/db');
 const checkpoints = [
     {
         name: 'Bar Picnic',
-        img: 'https://lh3.googleusercontent.com/p/AF1QipM1uLzqoISJlSk_vEoGj6fvNNBuco5W9sdnBqWO=s1360-w1360-h1020',
+        img: 'https://cflvdg.avoz.es/sc/Eb91mf4eC0KKouMAu9NiYzGI85A=/480x/2022/01/14/00121642167421637460659/Foto/H13E2096.jpg',
         location: {
             type: 'Point',
             coordinates: [43.3487585,-8.4194644]
         },
         address: 'Av. de Monelos, 57, 61, 15009 A Coruña',
         phone: '981 28 10 02',
+        books:[
+            "638e72e15c1e0ff107e0841b",
+            "638e72e15c1e0ff107e0841d"
+        ]
     }, 
     {
         name: 'Centre Restaurant',
@@ -23,6 +27,10 @@ const checkpoints = [
         },
         address: 'Rambla de Sant Jordi, 9, 08291 Ripollet, Barcelona',
         phone: '936 91 74 02',
+        books:[
+            "638e72e15c1e0ff107e08418", 
+            "638e72e15c1e0ff107e08419"
+        ]
     }, 
     {
         name: 'El Kiosko',
@@ -33,16 +41,24 @@ const checkpoints = [
         },
         address: 'Calle Cartuja, 15, 41400, Écija, Sevilla', 
         phone: '955 90 32 86',
+        books:[
+            "638e72e15c1e0ff107e0841a", 
+            "638e72e15c1e0ff107e0841c"
+        ]
     }, 
     {
         name: 'A Tobeira de Oza',
-        img: 'https://www.google.com/maps/place/A+Tobeira+de+Oza/@43.3530535,-8.3962531,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipMy2TiRuUBCfAJojehmmQfgsDobtoyee8exlZ7d!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipMy2TiRuUBCfAJojehmmQfgsDobtoyee8exlZ7d%3Dw203-h270-k-no!7i3000!8i4000!4m14!1m6!3m5!1s0xd2e7b38f32665ef:0xe481fef62aaf5296!2sA+Tobeira+de+Oza!8m2!3d43.3529992!4d-8.3963093!3m6!1s0xd2e7b38f32665ef:0xe481fef62aaf5296!8m2!3d43.3529992!4d-8.3963093!14m1!1BCgIYEg#',
+        img: 'https://espazo.coop/wp-content/uploads/2020/11/Logo.jpg',
         location: {
             type: 'Point',
             coordinates: [43.3529461,-8.3984604]
         },
         address: 'Rúa Merced, 24, baixo, 15009 A Coruña',
         phone: '881 87 21 91',
+        books:[
+            "638e72e15c1e0ff107e0841e",
+            "638e72e15c1e0ff107e0841f"
+        ]
     }, 
     {
         name: 'O Tío Pepe',
@@ -53,6 +69,10 @@ const checkpoints = [
         },
         address: 'Avda. Coruña, 19-21, Cerceda, 15185, A Coruña',
         phone: '981 68 51 33',
+        books:[
+            "638e72e25c1e0ff107e08420",
+            "638e72e25c1e0ff107e08421"
+        ]
     }, 
     {
         name: 'Asociación Cultural Gandalf',
@@ -63,6 +83,10 @@ const checkpoints = [
         },
         address: 'C. de Rafael Fernández Hijicos, 2, Local 4, 28038 Madrid',
         phone: '913 80 66 04',
+        books:[
+            "638e72e25c1e0ff107e08422",
+            "638e72e25c1e0ff107e08423"
+        ]
     }, 
     {
         name: 'Humana Vintage',
@@ -73,6 +97,10 @@ const checkpoints = [
         },
         address: 'C. de Toledo, 42, 28005 Madrid',
         phone: '916 03 47 22',
+        books:[
+            "638e72e25c1e0ff107e08424",
+            "638e72e25c1e0ff107e08425"
+        ]
     }, 
     {
         name: 'Charcutería Manuela',
@@ -83,6 +111,11 @@ const checkpoints = [
         },
         address: 'Pl. San Pedro, 33150 Cudillero, Asturias',
         phone: '*** ** ** **',
+        books:[
+            "638e72e25c1e0ff107e08426",
+            "638e72e25c1e0ff107e08427",
+            "638e73e91671afafbc9d48fb"
+        ]
     }, 
  
 ]

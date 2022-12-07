@@ -8,12 +8,23 @@ const { isAuth, isAdmin } = require("../../middlewares/auth");
 
 router.get("/", /*[isAuth],*/ async (req, res) => {
   try {
-    const allUsers = await User.find().populate('books');
+    const allUsers = await User.find();
     return res.status(200).json(allUsers);
   } catch (error) {
     return res.status(500).json("Error in search user");
   }
 });
+
+router.get("/id/:id", /*[isAuth],*/ async (req, res) => {
+  try {
+    const id = req.params.id;
+    const userById = await User.findOne({_id: id}).populate('book').lean();
+    return res.sendStatus(200).json(userById);
+  } catch (error) {
+    return res.statuts(500).json("Error getting user");
+  }
+});
+
 
 router.post("/register", async (req, res) => {
   try {
@@ -33,8 +44,9 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  console.log("req.body");
   try {
-    const userDB = await User.findOne({ email: req.body.email });
+    const userDB = await User.findOne({ email: req.body.email })
     if (!userDB) {
       return res.status(404).json("The user does not exist");
     }
@@ -70,7 +82,7 @@ router.put("/edit/:id", /*[isAdmin],*/ upload.single("photo"), async (req, res) 
     }
     const userModify = new User(user);
     userModify._id = id;
-    const userUpdated = await User.findByIdAndUpdate(id, userModify);
+    const userUpdated = await User.findByIdAndUpdate(id, userModify, { returnOriginal: false }).populate("book");
     return res.status(200).json({message: "User has been successfully updated", userModified: userUpdated});
   } catch (error) {
     return res.status(500).json("Error editing user");
@@ -91,7 +103,9 @@ router.delete("/delete/:name", [isAdmin], async (req, res) => {
 router.post('/checkSession', [isAuth],  async (req, res) => {
   try {
     const user = req.user;
-    return res.status(200).json(user)
+    const userLogged = await User.findById(user._id).populate("book");
+    console.log(userLogged);
+    return res.status(200).json(userLogged)
   } catch (error) {
     return res.status(500).json("Problem checking session");
   }
